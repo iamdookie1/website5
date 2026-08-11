@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Forge — Character Personality Creator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<header class="site-header">
+  <h1>Persona Forge</h1>
+  <p class="tagline">Build a character personality profile — pick traits or type your own, then copy it into your favorite AI chat app.</p>
+</header>
+
+<main class="layout">
+
+  <!-- BASICS -->
+  <section class="card">
+    <h2>Basics</h2>
+    <div class="field">
+      <label for="charName">Name</label>
+      <input type="text" id="charName" placeholder="e.g. Aria Nightshade">
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label for="charAge">Age</label>
+        <input type="text" id="charAge" placeholder="e.g. 24 or Ancient">
+      </div>
+      <div class="field">
+        <label for="charGender">Gender</label>
+        <input type="text" id="charGender" placeholder="e.g. Female, Male, Nonbinary">
+      </div>
+    </div>
+    <div class="field">
+      <label for="charRole">Role / Archetype</label>
+      <input type="text" id="charRole" placeholder="e.g. Rogue detective, Childhood friend, AI companion">
+    </div>
+  </section>
+
+  <!-- PERSONALITY TRAITS -->
+  <section class="card">
+    <h2>Personality Traits</h2>
+    <p class="hint">Click to select, or type your own and hit Enter / Add.</p>
+    <div class="tag-picker" id="traitPicker" data-target="traits"></div>
+    <div class="custom-add">
+      <input type="text" id="traitInput" placeholder="Add a custom trait…">
+      <button type="button" class="btn-add" data-input="traitInput" data-list="traits" data-target="traitPicker">Add</button>
+    </div>
+    <div class="selected-row" id="traitsSelected"></div>
+  </section>
+
+  <!-- APPEARANCE -->
+  <section class="card">
+    <h2>Appearance</h2>
+
+    <div class="field">
+      <label for="heightRange">Height <span id="heightValue">5'8" (173cm)</span></label>
+      <input type="range" id="heightRange" min="122" max="213" value="173" step="1">
+    </div>
+
+    <p class="hint">Pick appearance traits, or add your own.</p>
+    <div class="tag-picker" id="appearancePicker" data-target="appearance"></div>
+    <div class="custom-add">
+      <input type="text" id="appearanceInput" placeholder="Add a custom appearance detail…">
+      <button type="button" class="btn-add" data-input="appearanceInput" data-list="appearance" data-target="appearancePicker">Add</button>
+    </div>
+    <div class="selected-row" id="appearanceSelected"></div>
+
+    <div class="field">
+      <label for="charOutfit">Outfit / Style</label>
+      <input type="text" id="charOutfit" placeholder="e.g. Leather jacket, worn boots, silver rings">
+    </div>
+  </section>
+
+  <!-- SPEAKING STYLE -->
+  <section class="card">
+    <h2>Speaking Style</h2>
+    <p class="hint">Pick how they talk, or add your own.</p>
+    <div class="tag-picker" id="stylePicker" data-target="style"></div>
+    <div class="custom-add">
+      <input type="text" id="styleInput" placeholder="Add a custom speaking style…">
+      <button type="button" class="btn-add" data-input="styleInput" data-list="style" data-target="stylePicker">Add</button>
+    </div>
+    <div class="selected-row" id="styleSelected"></div>
+
+    <div class="toggle-row" id="formatToggles">
+      <label class="toggle"><input type="checkbox" value="Uses *asterisk actions* to describe body language"> *Action* text</label>
+      <label class="toggle"><input type="checkbox" value="Uses emojis occasionally"> Uses emojis 🙂</label>
+      <label class="toggle"><input type="checkbox" value="Replies in short, punchy sentences"> Short replies</label>
+      <label class="toggle"><input type="checkbox" value="Replies with long, detailed, descriptive paragraphs"> Long replies</label>
+      <label class="toggle"><input type="checkbox" value="Frequently asks questions back"> Asks questions back</label>
+      <label class="toggle"><input type="checkbox" value="Breaks the fourth wall occasionally"> Fourth-wall breaks</label>
+    </div>
+  </section>
+
+  <!-- BACKGROUND -->
+  <section class="card">
+    <h2>Background & Extra Details</h2>
+    <div class="field">
+      <label for="charBackground">Backstory</label>
+      <textarea id="charBackground" rows="4" placeholder="Where are they from? What shaped them?"></textarea>
+    </div>
+    <div class="field">
+      <label for="charLikes">Likes</label>
+      <input type="text" id="charLikes" placeholder="e.g. rainy nights, old vinyl records, black coffee">
+    </div>
+    <div class="field">
+      <label for="charDislikes">Dislikes</label>
+      <input type="text" id="charDislikes" placeholder="e.g. dishonesty, loud crowds">
+    </div>
+    <div class="field">
+      <label for="charGreeting">Sample Greeting / First Message</label>
+      <textarea id="charGreeting" rows="3" placeholder="*She looks up from her book* Oh — I didn't hear you come in."></textarea>
+    </div>
+  </section>
+
+  <!-- OUTPUT -->
+  <section class="card output-card">
+    <h2>Generated Profile</h2>
+    <div class="format-select">
+      <label for="formatStyle">Format:</label>
+      <select id="formatStyle">
+        <option value="plain">Plain text</option>
+        <option value="markdown" selected>Markdown (bold headers)</option>
+        <option value="bullets">Bullet list</option>
+        <option value="json">JSON</option>
+      </select>
+    </div>
+    <textarea id="output" readonly rows="16" placeholder="Your generated personality will appear here…"></textarea>
+    <div class="actions">
+      <button type="button" id="generateBtn" class="btn-primary">Generate Profile</button>
+      <button type="button" id="copyBtn" class="btn-secondary">Copy to Clipboard</button>
+      <span id="copyStatus" class="copy-status"></span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Persona Forge — build once, paste anywhere.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
