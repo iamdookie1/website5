@@ -3,8 +3,9 @@ const GIST_RAW_URL =
 
 module.exports = async (req, res) => {
   try {
-    const gistResponse = await fetch(GIST_RAW_URL, {
+    const gistResponse = await fetch(`${GIST_RAW_URL}?_=${Date.now()}`, {
       headers: { "User-Agent": "website5-rules-endpoint" },
+      cache: "no-store",
     });
 
     if (!gistResponse.ok) {
@@ -17,10 +18,8 @@ module.exports = async (req, res) => {
     const text = await gistResponse.text();
 
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.setHeader(
-      "Cache-Control",
-      "public, max-age=60, s-maxage=300, stale-while-revalidate=600"
-    );
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
     res.status(200).send(text);
   } catch (err) {
     res.status(500).send("Error fetching gist content.");
